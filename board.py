@@ -2,9 +2,8 @@
 class Board:
 	
 	move_history = []
-
+	# Initialize Board with required parameters of a new board game.
 	def __init__(self):
-
 		self.empty = '_'
 		self.board_width = 7
 		self.board_height = 6
@@ -15,17 +14,18 @@ class Board:
 		self.emptyBoard = True
 		self.count = 0
 		self.winning = ''
-
+		
+		# enumerate the board
 		for i in range(self.board_width):
 			self.board.append([self.empty] * self.board_height)
 	
-
+	# determine if the move by a player is valid
 	def isValidMove(self, move):
 		if self.board[move][0] != '_':
 		    return False
 
 		return True
-
+	# generate list of valid moves for the player
 	def generate_moves(self):
 		moves = []
 		for move in range(self.board_width):
@@ -33,7 +33,7 @@ class Board:
 				moves.append(move)
 		return moves
 			
-
+	# change the state of the board based on the move taken by the player and switch the player.
 	def make_move(self, move):		
 		for i in range(self.board_height - 1, -1, -1):
 			if self.board[move][i] == self.empty:
@@ -46,7 +46,8 @@ class Board:
 					self.player = self.player1
 				self.emptyBoard = False
 				return self
-
+	
+	# change the state of the board if the player unmakes the last move.
 	def unmake_last_move(self):
 		x = Board.move_history[len(Board.move_history)-1][0]
 		y = Board.move_history[len(Board.move_history)-1][1]
@@ -55,7 +56,8 @@ class Board:
 		self.board[x][y] = self.empty
 		Board.move_history.remove(Board.move_history[len(Board.move_history)-1])
 		#str(self.board)
-
+	
+	#determine if the last move resulted in a win by checking the 4 tiles of same colour in horizontal, vertical and two diagonals.
 	def last_move_won(self):
 		color = ''		
 		if len(Board.move_history) <= 6:
@@ -95,14 +97,15 @@ class Board:
 					return True
 
 		return False
-
+	# This method determines if the board has any vacant tiles by comparing the content of a tile with empty marker.
 	def isBoardFull(self):
 	    for x in range(self.board_width):
 	        for y in range(self.board_height):
 	            if self.board[x][y] == self.empty:
 	                return False
 	    return True
-
+	
+	# String representation of the board for debugging purposes
 	def __str__(self):
 		state = ''
 		for i in range(self.board_height):
