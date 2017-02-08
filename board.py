@@ -1,14 +1,16 @@
+##Implementation of Board for a connect 4 game.
 
 class Board:
-	
+	# Using move history to keep track of progress of the game.
 	move_history = []
+	
 	# Initialize Board with required parameters of a new board game.
 	def __init__(self):
 		self.empty = '_'
 		self.board_width = 7
 		self.board_height = 6
-		self.player1 = 'g'
-		self.player2 = 'b'
+		self.player1 = 'green'
+		self.player2 = 'blue'
 		self.player = self.player1
 		self.board = []
 		self.emptyBoard = True
@@ -63,10 +65,10 @@ class Board:
 		if len(Board.move_history) <= 6:
 			return False
 
-		if(self.player == 'g'):
-			color = 'b'
+		if(self.player == 'green'):
+			color = 'blue'
 		else:
-			color ='g'		
+			color ='green'		
 
 		# check horizontal winning
 		for y in range(self.board_height):
